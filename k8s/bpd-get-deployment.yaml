@@ -55,6 +55,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: bpd-crud-secrets
+                  key: INTERNAL_API_SECRET
             - name: CRUD_MS_URL
               value: "http://bpd-crud-ms:3000"
 ---
