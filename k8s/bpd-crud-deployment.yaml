@@ -55,6 +55,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: bpd-crud-secrets
+                  key: INTERNAL_API_SECRET
             - name: BPD_GET_MS_URL
               value: "http://bpd-get-ms:3001"
 ---
