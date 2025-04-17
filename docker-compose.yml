@@ -1,0 +1,43 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  crud-service:
+    build: ./bpd-crud-ms
+    container_name: bpd-crud-ms
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./bpd-crud-ms/.env
+    depends_on:
+      - mongo
+      - get-service
+    volumes:
+      - ./bpd-crud-ms:/app
+    networks:
+      - backend
+
+  get-service:
+    build: ./bpd-get-ms
+    container_name: bpd-get-ms
+    ports:
+      - "3001:3000"
+    env_file:
+      - ./bpd-get-ms/.env
+    depends_on:
+      - mongo
+    volumes:
+      - ./bpd-get-ms:/app
+    networks:
+      - backend
+
+volumes:
+  mongo-data:
+
+networks:
+  backend:

@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: BPD GET Microservice
+  version: 1.0.0
+  description: API for retrieving user profiles and validating tokens
+servers:
+  - url: http://localhost:3001
+paths:
+  /api/profile:
+    get:
+      summary: Get own profile using JWT token
+      security:
+        - bearerAuth: []
+        - apiKeyAuth: []
+        - apiSecretAuth: []
+      responses:
+        '200':
+          description: Returns the user's profile
+        '401':
+          description: Missing or invalid token
+        '404':
+          description: User not found
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+    apiSecretAuth:
+      type: apiKey
+      in: header
+      name: x-api-secret
